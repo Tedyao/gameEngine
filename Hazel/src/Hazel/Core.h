@@ -9,6 +9,7 @@
 		#define HAZEL_API __declspec(dllimport)
 	#endif
 #else 
-	#error Hazel only support windows for now!
+	#error Hazel only supports windows for now!
 #endif
 
+#define BIT(x) (1 << x)
