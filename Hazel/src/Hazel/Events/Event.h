@@ -1,15 +1,15 @@
 #pragma once
 
-#include "../Core.h"
-
+#include "Hazel/Core.h"
 #include <string>
 #include <functional>
+
 
 namespace Hazel {
 
     enum class EventType {
         None = 0,
-        WindowClose, WindowResize, WindowFocus, WIndowLostFocus, WindowMoved, 
+        WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved, 
         AppTick, AppUpdate, AppRender,
         KeyPressed, KeyReleased,
         MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
@@ -24,6 +24,10 @@ namespace Hazel {
         EventCategoryMouseButton    = BIT(4)
     };
 
+#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; } \
+                               virtual EventType GetEventType() const override { return GetStaticType(); }\
+                               virtual const char* GetName() const override { return #type; }
     class HAZEL_API Event {
         friend class EventDispatcher;
     public:
@@ -40,12 +44,6 @@ namespace Hazel {
         bool m_Handled = false;
 
     };
-
-#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() { return category; }
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type} \
-                                virtual EventType GFetEventType() { return GetStaticType(); }\
-                                virtual const char* GetName() { return #type; }
-
     class EventDispatcher {
         template<typename T>
         using EventFn = std::function<bool(T&)>;
@@ -57,8 +55,8 @@ namespace Hazel {
 
         template<typename T>
         bool Dispatch(EventFn<T> func) {
-            if (m_Event.GetEventType() == T::GetStatictType()) {
-                m_Event.m_handled = func(*(T*)&m_Event);
+            if (m_Event.GetEventType() == T::GetStaticType()) {
+                m_Event.m_Handled = func(*(T*)&m_Event);
                 return true;
             }
             return false;
@@ -67,4 +65,7 @@ namespace Hazel {
         Event& m_Event;
     };
 
+    inline std::ostream& operator<<(std::ostream& os, const Event& e) {
+        return os << e.ToString();
+    }
 }

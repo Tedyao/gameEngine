@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Event.h"
-#include "../Core.h"
-#include <sstream>
 
 namespace Hazel {
     class HAZEL_API KeyEvent: public Event {
@@ -10,7 +8,8 @@ namespace Hazel {
         inline int GetKeyCode() const {
             return m_KeyCode;
         }
-        EVENT_CLASS_CATEGORY(EventCategory::EventCategoryKeyboard);
+        EVENT_CLASS_CATEGORY(EventCategoryKeyboard)
+   
     protected:
         KeyEvent(int keyCode)
         :m_KeyCode(keyCode) {
@@ -30,14 +29,33 @@ namespace Hazel {
             return m_RepeatedCount;
         }
 
-        std::string ToString() {
+        std::string ToString() const override {
             std::stringstream ss;
             ss << "KeyPressedEvent: " << m_KeyCode << " (" << m_RepeatedCount << " repeats)";
             return ss.str();
         }
 
+        EVENT_CLASS_TYPE(KeyPressed)
+
+
     private:
         int m_RepeatedCount;
+    };
+
+    class HAZEL_API KeyReleasedEvent : public KeyEvent {
+    public:
+        KeyReleasedEvent(int keyCode)
+            :KeyEvent(keyCode) {
+
+        }
+
+        std::string ToString() {
+            std::stringstream ss;
+            ss << "KeyPressedReleased: " << m_KeyCode;
+            return ss.str();
+        }
+
+        EVENT_CLASS_TYPE(KeyReleased)
     };
 
 }
