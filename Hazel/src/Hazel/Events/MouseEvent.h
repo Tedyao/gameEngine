@@ -47,6 +47,12 @@ namespace Hazel {
         EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
         EVENT_CLASS_TYPE(MouseScrolled)
 
+        std::string ToString() const override {
+            std::stringstream ss;
+            ss << "MouseScrolledEvent: x(" << m_offsetX << "), y(" << m_offsetY << ")";
+            return ss.str();
+        }
+
     private:
         float m_offsetX, m_offsetY;
     };

@@ -4,6 +4,8 @@
 #include "Hazel/Window.h"
 #include "Hazel/Core.h"
 
+#include "glad/glad.h"
+
 namespace Hazel {
     class WindowsWindow : public Window {
     public:
