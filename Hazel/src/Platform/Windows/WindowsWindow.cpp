@@ -77,6 +77,7 @@ namespace Hazel {
             {
                 KeyReleasedEvent event(key);
                 data.EventCallback(event);
+                break;
             }
             case GLFW_REPEAT:
             {

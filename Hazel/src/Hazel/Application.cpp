@@ -24,7 +24,7 @@ namespace Hazel {
 	void Application::OnEvent(Event& e) {
 		EventDispatcher dispatcher(e);
 
-		HZ_CORE_TRACE("{0}", e);
+		//HZ_CORE_TRACE("{0}", e);
 
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowCloseEvent));
 
@@ -55,8 +55,6 @@ namespace Hazel {
 		WindowCloseEvent close = WindowCloseEvent();
 		HZ_CORE_INFO(close);
 		while (m_Running) {
-			auto[x, y] = Input::GetMousePosition();
-			HZ_CORE_INFO("Mouse Pos: {0}, {1}", x, y);
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			for (Layer* layer : m_LayerStack) {
