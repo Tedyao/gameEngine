@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "LayerStack.h"
 #include "glad/glad.h"
+#include "Input.h"
 
 namespace Hazel {
 
@@ -54,7 +55,8 @@ namespace Hazel {
 		WindowCloseEvent close = WindowCloseEvent();
 		HZ_CORE_INFO(close);
 		while (m_Running) {
-
+			auto[x, y] = Input::GetMousePosition();
+			HZ_CORE_INFO("Mouse Pos: {0}, {1}", x, y);
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			for (Layer* layer : m_LayerStack) {
