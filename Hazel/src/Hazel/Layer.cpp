@@ -25,6 +25,10 @@ namespace Hazel {
 	{
 	}
 
+	void Layer::OnImGuiRender()
+	{
+	}
+
 	void Layer::OnEvent(Event& e)
 	{
 	}
