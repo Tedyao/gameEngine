@@ -5,3 +5,6 @@ bin/
 bin-int/
 *.user
 *.snl
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
