@@ -5,6 +5,7 @@
 #include "Hazel/Core.h"
 
 #include "glad/glad.h"
+#include "Hazel/Renderer/GraphicsContext.h"
 
 namespace Hazel {
     class WindowsWindow : public Window {
@@ -35,6 +36,7 @@ namespace Hazel {
 
     private:
         GLFWwindow* m_Window;
+        GraphicsContext* m_Context;
 
         struct WindowData {
             std::string Title;
