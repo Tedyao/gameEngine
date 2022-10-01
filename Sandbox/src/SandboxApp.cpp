@@ -29,6 +29,8 @@ public:
 
 	void OnImGuiRender() {
 		//ImGui::Begin("test");
+		//ImGui::Begin("hello");
+		ImGui::Text("Hello world");
 
 	}
 
